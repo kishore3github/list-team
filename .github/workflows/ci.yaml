@@ -30,9 +30,12 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/list-team:cache
       
+      - name: Pull Docker image
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1
+
       - name: docker run
         run: |
-          docker run --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1
+          docker run --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1 python main.py
           sleep 10
           curl http://localhost:8080/api/teams
           docker stop $(docker ps -q --filter ancestor=${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1)
