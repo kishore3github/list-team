@@ -39,13 +39,13 @@ jobs:
 
           # Wait for the service to be available
           for i in {1..10}; do
-            if curl --fail http://127.0.0.1:8080/api/health; then
-              break
-            fi
-            echo "Waiting for service..."
-            sleep 3
+            if curl --fail http://127.0.0.1:8080/health; then
+                    break
+                  fi
+                  echo "Waiting for service..."
+                  sleep 3
           done
 
-          curl http://127.0.0.1:8080/api/team-table
+          curl http://127.0.0.1:8080/team-table
 
           docker stop $CONTAINER_ID
