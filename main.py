@@ -22,3 +22,9 @@ def team_table(request: Request):
     team_data = load_team_data("team_members.csv")
     return templates.TemplateResponse("team.html", {"request": request, "teams": team_data})
 
+
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
+
+

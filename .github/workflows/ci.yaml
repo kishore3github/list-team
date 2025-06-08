@@ -37,5 +37,7 @@ jobs:
         run: |
           docker run --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1 python main.py
           sleep 10
-          curl http://localhost:8080/api/teams
+          curl http://localhost:8080/api/health
+          curl http://localhost:8080/api/team-table
+
           docker stop $(docker ps -q --filter ancestor=${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1)
