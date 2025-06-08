@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		    <title>Team Members</title>
+		        <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+	        h2 { color: #333; }
+		        table { width: 60%; border-collapse: collapse; margin-bottom: 30px; }
+			        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+				        th { background-color: #f2f2f2; }
+					    </style>
+	</head>
+	<body>
+		    <h1>Team Members</h1>
+		        {% for team, members in teams.items() %}
+			        <h2>{{ team }}</h2>
+				        <table>
+						            <tr>
+								                    <th>Name</th>
+										                    <th>Role</th>
+												                </tr>
+														            {% for member in members %}
+															                <tr>
+																		                <td>{{ member.name }}</td>
+																				                <td>{{ member.role }}</td>
+																						            </tr>
+																							                {% endfor %}
+																									        </table>
+																										    {% endfor %}
+	</body>
+</html>
+
