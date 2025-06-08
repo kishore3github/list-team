@@ -36,8 +36,16 @@ jobs:
       - name: docker run
         run: |
           docker run --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1 python main.py
-          sleep 10
-          curl http://localhost:8080/api/health
+
+          # Wait for the service to be available
+          for i in {1..10}; do
+            if curl --fail http://localhost:8080/api/health; then
+              break
+            fi
+            echo "Waiting for service..."
+            sleep 3
+          done
+
           curl http://localhost:8080/api/team-table
 
           docker stop $(docker ps -q --filter ancestor=${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1)
