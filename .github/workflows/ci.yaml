@@ -27,5 +27,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/list-team:${{ github.sha }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/list-team:cache
