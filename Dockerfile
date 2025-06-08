@@ -9,7 +9,11 @@ WORKDIR /app
 COPY . /app
 
 # Install dependencies
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt \
+    && apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # Expose the port FastAPI will run on
 EXPOSE 8000
