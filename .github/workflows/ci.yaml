@@ -31,7 +31,7 @@ jobs:
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/list-team:cache
       
       - name: Pull Docker image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v2
 
       - name: docker run
         run: |
