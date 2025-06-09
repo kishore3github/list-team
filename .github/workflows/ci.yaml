@@ -27,7 +27,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v2
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/list-team:cache
       
       - name: Pull Docker image
@@ -35,7 +35,7 @@ jobs:
 
       - name: docker run
         run: |
-          CONTAINER_ID=$(docker run --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v1)
+          CONTAINER_ID=$(docker run --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v2)
 
           # Wait for the service to be available
           for i in {1..10}; do
