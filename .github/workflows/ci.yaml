@@ -7,6 +7,9 @@ on:
 
 jobs:
   build-and-push:
+    env:
+      image_tag: v3
+      image_name: list-team
     runs-on: ubuntu-latest
 
     steps:
@@ -27,15 +30,19 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v2
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/list-team:${{ env.image_tag }}
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/list-team:cache
       
       - name: Pull Docker image
-        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v2
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/list-team:${{ env.image_tag }}
+
+      - name: Run tests
+        run: docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/list-team:${{ env.image_tag }} pytest -v
 
       - name: docker run
         run: |
-          CONTAINER_ID=$(docker run --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/list-team:v2)
+          CONTAINER_ID=$(docker run --rm -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/list-team:${{ env.image_tag }})
+          echo "Container ID: $CONTAINER_ID"
 
           # Wait for the service to be available
           for i in {1..10}; do
